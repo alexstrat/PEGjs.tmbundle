@@ -1,0 +1,112 @@
+{	scopeName = 'source.pegjs';
+	fileTypes = ( 'pegjs');
+	foldingStartMarker = '/\*\*|\{\s*$';
+	foldingStopMarker = '\*\*/|^\s*\}';
+	patterns = (
+	    {   include = '#commentBlock';},
+	    {   include = '#commentLine';},
+	    {   include = '#docCommentLine';},
+	    {	include = '#exprLabel'; },
+        {	include = '#pegOperator'; },
+        {	include = '#charSet'; },
+        {	include = '#literalDouble'; },
+        {	include = '#literalSingle'; },
+        
+	    {   name = 'source.pegjs.ruleDefinition';
+	        match = "^([a-zA-Z$_][a-zA-Z$_0-9]*)[\t ]*(\".*\")[\t ]*=?";
+	        captures = {
+	            1 = {name = 'entity.name.type';};
+	            2 = {name = 'comment.line.double-slash';};
+	            };
+	    },
+	    {   name = 'source.pegjs.ruleDefinition';
+	        match = "^([a-zA-Z$_][a-zA-Z$_0-9]*)[\t ]*('.*')[\t ]*=?";
+	        captures = {
+	            1 = {name = 'entity.name.type';};
+	            2 = {name = 'comment.line.double-slash';};
+	            };
+	    },
+	    {   name = 'source.pegjs.ruleDefinition';
+	        match = "^([a-zA-Z_][a-zA-Z$_0-9]*)[\s\t]*=?";
+	        captures = {
+	            1 = {name = 'entity.name.type';};
+	            };
+	    },
+	    {include = '#scriptblock';},
+	);
+	repository = {
+	    scriptblock = {
+	        name = 'source.js.embedded.pegjs';
+		    begin = '\{';
+			end = '\}';
+			patterns = (
+			        {include = '#scriptblock';},
+			        {include = 'source.js';}
+			        );
+	    };
+	    
+	    pegOperator = {
+		    name = 'keyword.operator';
+		    match = '[/.+*?&!=]';
+		};
+		charSet = {
+		    name = 'keyword.operator';
+		    begin = '\[';
+		    end = '\]';
+		};
+		rule = {
+		    name = 'entity.name.type';
+		    match = '[a-zA-Z$_][a-zA-Z$_0-9]*';
+		};
+		ruleDef = {
+		    name = 'entity.name.type';
+		    match = '[_a-zA-Z$_][a-zA-Z$_0-9]*';
+		};
+		exprLabel = {
+		    name = 'variable.parameter';
+		    match = '[a-zA-Z$_][a-zA-Z$_0-9]*:';
+		};
+		literalSingle = {
+		    name = 'string.quoted.single.js';
+            begin = "'";
+            end = "'";
+            beginCaptures = { 0 = { name = 'punctuation.definition.string.begin.pegjs'; }; };
+            endCaptures = { 0 = { name = 'punctuation.definition.string.end.pegjs'; }; };
+            patterns = (
+            	{	name = 'constant.character.escape.js';
+            		match = '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)';
+            	},
+            	);
+		};
+		literalDouble = {
+		    name = 'string.quoted.double.pegjs';
+            begin = '"';
+            end = '"';
+            beginCaptures = { 0 = { name = 'punctuation.definition.string.begin.pegjs'; }; };
+            endCaptures = { 0 = { name = 'punctuation.definition.string.end.pegjs'; }; };
+            patterns = (
+            	{	name = 'constant.character.escape.pegjs';
+            	    match = '\\(x\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)';
+            	},
+            	);
+		};
+		docCommentBlock = {
+		    name = 'comment.block.documentation.peg';
+		    begin = '/\*\*(?!/)';
+		    end = '\*/';
+		    captures = { 0 = { name = 'punctuation.definition.comment.pegjs'; }; };
+		};  
+		commentBlock = {
+		    name = 'comment.block';
+        	begin = '/\*';
+        	end = '\*/';
+        	captures = { 0 = { name = 'punctuation.definition.comment.pegjs'; }; };
+		};
+		commentLine = {
+		    name = 'comment.line.double-slash.js';
+            match = '(//).*$\n?';
+            captures = { 1 = { name = 'punctuation.definition.comment.js'; }; };
+		};
+	    
+	};
+}
