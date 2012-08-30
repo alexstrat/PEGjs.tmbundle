@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>PEGjs</string>
+	<string>PEG.js</string>
 	<key>ordering</key>
 	<array>
 		<string>80B4785F-2A67-40BD-8C68-963EE6AC0A2A</string>
