@@ -18,10 +18,13 @@ $ git clone git@github.com:alexstrat/PEGjs.tmbundle.git PEGjs.tmbundle
 
 ### Sublime Text
 
+With the [package manager](http://wbond.net/sublime_packages/package_control), look at **PEGjs**.
+
+Or :
+
 ```bash
 $ mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
 $ cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages
 $ git clone git@github.com:alexstrat/PEGjs.tmbundle.git PEGjs.tmbundle
 ```
 
-Or via the package manager..
